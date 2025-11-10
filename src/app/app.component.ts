@@ -1,12 +1,32 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { Component, inject } from '@angular/core';
+
+import {
+  PoMenuItem,
+  PoMenuModule,
+  PoPageModule,
+  PoToolbarModule,
+} from '@po-ui/ng-components';
+import { Router, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [
+    CommonModule,
+    PoToolbarModule,
+    PoMenuModule,
+    PoPageModule,
+    RouterModule
+],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  title = 'ats-totvs-web';
+
+  private readonly router: Router = inject(Router);
+
+  readonly menus: Array<PoMenuItem> = [
+    { label: 'Home', link: '/' },
+    { label: 'Candidatos', link: '/candidatos' }
+  ];
 }

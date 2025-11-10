@@ -1,0 +1,26 @@
+<po-page-default [p-title]="title">
+    <po-dynamic-form
+        #dynamicForm
+        p-auto-focus="cpf"
+        [p-fields]="fields"
+        [p-value]="candidatoSelecionado">
+    </po-dynamic-form>
+
+    <br/>
+
+    <div class="p-row">
+        <div class="p-col-12 p-text-right">
+            <po-button
+                p-label="Cancelar"
+                (p-click)="cancel()">
+            </po-button>
+    
+            <po-button
+                p-label="Salvar"
+                [p-loading]="isLoading"
+                [p-disabled]="!!dynamicForm?.form?.invalid"
+                (p-click)="submitForm(dynamicForm?.form?.value)">
+            </po-button>
+        </div>
+    </div>
+</po-page-default>

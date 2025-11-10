@@ -1,0 +1,25 @@
+<div class="po-font-text-large po-text-neutral-dark-40">Listagem de candidatos</div>
+<po-divider />
+<po-button p-label="Novo Candidato" p-icon="po-icon-plus" (p-click)="criarCandidato()"></po-button>
+<po-divider />
+<po-table
+    p-container="shadow"
+    [p-loading]="isLoading"
+    [p-items]="candidatos"
+    [p-columns]="columns"
+    [p-show-more-disabled]="disableMoreRows"
+    p-no-data-label="Nenhum candidato encontrado">
+    <ng-template p-table-column-template [p-property]="'cpf'" let-value>
+      {{ value | cpf }}
+    </ng-template>
+    <ng-template p-table-column-template [p-property]="'telefone'" let-value>
+      {{ value | telefone }}
+    </ng-template>
+</po-table>
+<po-modal
+    [p-primary-action]="primaryAction"
+    [p-secondary-action]="secondaryAction"
+    [p-hide-close]="true"
+    [p-click-out]="false">
+    {{ contentModal }}
+</po-modal>
