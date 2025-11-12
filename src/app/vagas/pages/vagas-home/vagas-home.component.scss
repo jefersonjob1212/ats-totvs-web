@@ -1,0 +1,19 @@
+.badge {
+  padding: 3px 10px;
+  border-radius: 3px;
+  color: #fff;
+  width: 100px;
+  text-align: center;
+  box-shadow:
+    0 4px 8px 0 rgba(0, 0, 0, 0.2),
+    0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  font-size: 10px;
+}
+
+.badge.active {
+  background-color: #058143;
+}
+
+.badge.stopped {
+  background-color: #a83131;
+}

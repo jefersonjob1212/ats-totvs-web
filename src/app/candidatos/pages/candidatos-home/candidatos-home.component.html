@@ -1,4 +1,4 @@
-<div class="po-font-text-large po-text-neutral-dark-40">Listagem de candidatos</div>
+<div class="po-font-subtitle po-text-neutral-dark-40">Listagem de candidatos</div>
 <po-divider />
 <po-button p-label="Novo Candidato" p-icon="po-icon-plus" (p-click)="criarCandidato()"></po-button>
 <po-divider />
@@ -6,9 +6,11 @@
     p-container="shadow"
     [p-loading]="isLoading"
     [p-items]="candidatos"
+    [p-height]="375"
     [p-columns]="columns"
     [p-show-more-disabled]="disableMoreRows"
-    p-no-data-label="Nenhum candidato encontrado">
+    p-no-data-label="Nenhum candidato encontrado"
+    (p-show-more)="showMore()">
     <ng-template p-table-column-template [p-property]="'cpf'" let-value>
       {{ value | cpf }}
     </ng-template>

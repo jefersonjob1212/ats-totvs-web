@@ -24,6 +24,10 @@ export class CandidatosService {
     return this.httpClient.get<CandidatoResponse>(`${this.baseUrl}/${id}`);
   }
 
+  public obterPorCpf(cpf: string): Observable<CandidatoResponse> {
+    return this.httpClient.get<CandidatoResponse>(`${this.baseUrl}/cpf/${cpf}`);
+  }
+
   public criar(candidato: CandidatoCriarEditarRequest): Observable<{ id: string }> {
     return this.httpClient.post<string>(this.baseUrl, candidato)
       .pipe(map((response: any) => ({ id: response })));

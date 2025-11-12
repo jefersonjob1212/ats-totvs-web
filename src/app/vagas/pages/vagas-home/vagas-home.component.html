@@ -1,0 +1,28 @@
+<div class="po-font-subtitle po-text-neutral-dark-40">Listagem de vagas</div>
+<po-divider />
+<po-button p-label="Nova vaga" p-icon="po-icon-plus" (p-click)="criarVaga()"></po-button>
+<po-divider />
+<po-table
+    p-container="shadow"
+    [p-loading]="isLoading"
+    [p-items]="vagas"
+    [p-height]="375"
+    [p-columns]="columns"
+    [p-show-more-disabled]="disableMoreRows"
+    [p-loading-show-more]="isLoading"
+    p-no-data-label="Nenhuma vaga encontrada"
+    (p-show-more)="showMore()">
+    <ng-template p-table-column-template p-property="encerrada" let-value>
+        <span 
+            class="badge" 
+            [ngClass]="{'active': !value, 'stopped': value}">
+            {{ value ? 'Encerrada' : 'Ativa' }}
+        </span>
+    </ng-template>
+</po-table>
+<po-modal
+    [p-secondary-action]="secondaryAction"
+    [p-hide-close]="true"
+    [p-click-out]="false">
+    {{ contentModal }}
+</po-modal>

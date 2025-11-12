@@ -20,6 +20,8 @@
     "module": "ES2022",
     "paths": {
       "@candidatos/*": ["./app/candidatos/*"],
+      "@candidaturas/*": ["./app/candidatura/*"],
+      "@vagas/*": ["./app/vagas/*"],
       "@env": ["./environments/environment"],
       "@shared/*": ["./app/shared/*"]
     }

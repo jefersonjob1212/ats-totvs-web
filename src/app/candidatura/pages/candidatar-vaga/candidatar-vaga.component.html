@@ -1,0 +1,44 @@
+<po-page-default [p-title]="'Buscar Candidato'">
+    <po-dynamic-form
+        #dynamicForm
+        p-auto-focus="cpf"
+        [p-fields]="fields">
+    </po-dynamic-form>
+    <div class="p-row">
+        <div class="p-col-12 p-text-right">
+            <po-button
+                p-label="Cancelar"
+                (p-click)="cancel()">
+            </po-button>
+    
+            <po-button
+                style="margin-left: 1%;"
+                p-label="Consultar"
+                [p-loading]="isLoading"
+                [p-disabled]="!!dynamicForm?.form?.invalid"
+                (p-click)="submitForm(dynamicForm?.form?.value)">
+            </po-button>
+        </div>
+    </div>
+    @if (candidato) {
+        <po-divider />
+        <div class="po-font-subtitle po-text-neutral-dark-40">{{ obterNomeCandidato() }}</div>
+        <po-table
+            p-container="shadow"
+            [p-loading]="isLoading"
+            [p-items]="vagas"
+            [p-columns]="columns"
+            [p-show-more-disabled]="disableMoreRows"
+            [p-loading-show-more]="isLoading"
+            p-no-data-label="Nenhum candidato encontrado"
+            (p-show-more)="showMore()">
+        </po-table>
+    }
+</po-page-default>
+<po-modal
+    [p-primary-action]="primaryAction"
+    [p-secondary-action]="secondaryAction"
+    [p-hide-close]="true"
+    [p-click-out]="false">
+    {{ contentModal }}
+</po-modal>

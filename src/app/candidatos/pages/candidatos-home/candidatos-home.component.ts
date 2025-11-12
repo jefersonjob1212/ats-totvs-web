@@ -26,6 +26,7 @@ export class CandidatosHomeComponent implements OnInit {
   isLoading: boolean = false;
   disableMoreRows = false;
   contentModal: string = '';
+  filter: CandidatoFilterRequest = new CandidatoFilterRequest({ PageNumber: 1, PageSize: 5 });
 
   primaryAction: PoModalAction = {
     action: () => {
@@ -119,13 +120,22 @@ export class CandidatosHomeComponent implements OnInit {
     });
   }
 
+  showMore() {
+    this.filter = new CandidatoFilterRequest({
+      PageNumber: this.filter.PageNumber,
+      PageSize: this.filter.PageSize + 5
+    });
+
+    this.loadCandidatos();
+  }
+
   private loadCandidatos(): void {
     this.isLoading = true;
-    this.candidatosService.listar(new CandidatoFilterRequest({})).subscribe({
+    this.candidatosService.listar(this.filter).subscribe({
       next: (response) => {
         this.candidatos = response.items;
         this.candidatos.forEach(c => c.acoes = ['editar', 'excluir']);
-        this.disableMoreRows = response.pageNumber >= response.totalPages || response.totalItems <= 10;
+        this.disableMoreRows = response.totalItems <= 5 || this.filter.PageSize >= response.totalItems;
         this.isLoading = false;
       },
       error: (error) => {

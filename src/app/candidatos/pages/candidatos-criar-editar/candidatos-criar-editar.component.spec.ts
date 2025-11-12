@@ -43,7 +43,8 @@ describe('CandidatosCriarEditarComponent', () => {
     ]);
     mockPoNotification = jasmine.createSpyObj('PoNotificationService', [
       'success',
-      'error'
+      'error',
+      'warning'
     ]);
 
     mockActivatedRoute = {
@@ -136,6 +137,27 @@ describe('CandidatosCriarEditarComponent', () => {
         );
         expect(mockPoNotification.error).toHaveBeenCalledWith(
           'Erro ao criar o candidato.'
+        );
+        expect(component.isLoading).toBe(false);
+        expect(mockRouter.navigate).not.toHaveBeenCalled();
+        done();
+      }, 100);
+    });
+
+    it('should handle "candidato já cadastrado" error when creating candidate', (done) => {
+      const error = {
+        error: 'Candidato já cadastrado'
+      };
+      mockCandidatosService.criar.and.returnValue(throwError(() => error));
+
+      component.submitForm(mockCandidatoCriarEditarRequest);
+
+      setTimeout(() => {
+        expect(mockCandidatosService.criar).toHaveBeenCalledWith(
+          mockCandidatoCriarEditarRequest
+        );
+        expect(mockPoNotification.warning).toHaveBeenCalledWith(
+          'Candidato já cadastrado'
         );
         expect(component.isLoading).toBe(false);
         expect(mockRouter.navigate).not.toHaveBeenCalled();

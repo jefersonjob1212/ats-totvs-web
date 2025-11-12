@@ -69,7 +69,7 @@ export class CandidatosCriarEditarComponent {
         { value: 4, label: 'Não Informado' }
       ],
     }
-  ]
+  ];
 
   constructor() {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -97,9 +97,12 @@ export class CandidatosCriarEditarComponent {
           this.router.navigate(['/candidatos']);
         },
         error: (error) => {
-          // Handle error
-          this.poNotification.error(`Erro ao ${this.isEditMode ? 'alterar' : 'criar'} o candidato.`);
-          console.error(error);
+          if(error.error && error.error.includes('Candidato já cadastrado')) {
+            this.poNotification.warning('Candidato já cadastrado');
+          } else {
+            this.poNotification.error(`Erro ao ${this.isEditMode ? 'alterar' : 'criar'} o candidato.`);
+            console.error(error);
+          }
           this.isLoading = false;
         }
       });
@@ -119,7 +122,6 @@ export class CandidatosCriarEditarComponent {
         this.isLoading = false;
       },
       error: (error) => {
-        // Handle error
         this.poNotification.error(`Erro ao ${this.isEditMode ? 'alterar' : 'criar'} o candidato.`);
         console.error(error);
         this.isLoading = false;

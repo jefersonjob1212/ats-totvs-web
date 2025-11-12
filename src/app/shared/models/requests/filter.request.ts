@@ -4,6 +4,6 @@ export abstract class FilterRequest {
 
     constructor(partial: Partial<FilterRequest> = {}) {
         this.PageNumber = partial.PageNumber ?? 1;
-        this.PageSize = partial.PageSize ?? 10;
+        this.PageSize = partial.PageSize ?? 5;
     }
 }

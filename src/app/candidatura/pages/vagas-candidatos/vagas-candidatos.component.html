@@ -1,0 +1,18 @@
+<div class="po-font-subtitle po-text-neutral-dark-40">Candidatos da vaga {{ vagas?.vagaTitulo }}</div>
+<po-divider />
+<po-button p-label="Voltar" p-icon="an an-arrow-left" (p-click)="voltar()"></po-button>
+<po-divider />
+<po-table
+    p-container="shadow"
+    [p-loading]="isLoading"
+    [p-items]="vagas?.candidatos!"
+    [p-columns]="columns"
+    [p-show-more-disabled]="disableMoreRows"
+    p-no-data-label="Nenhuma vaga encontrada">
+    <ng-template p-table-column-template [p-property]="'cpf'" let-value>
+      {{ value | cpf }}
+    </ng-template>
+    <ng-template p-table-column-template [p-property]="'telefone'" let-value>
+      {{ value | telefone }}
+    </ng-template>
+</po-table>

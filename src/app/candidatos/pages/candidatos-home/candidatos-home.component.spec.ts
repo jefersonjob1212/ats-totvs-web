@@ -188,19 +188,7 @@ describe('CandidatosHomeComponent', () => {
     expect(component.poModal.open).toHaveBeenCalled();
   });
 
-  it('should delete candidato and reload list when excluirCandidato is called', () => {
-    createComponent();
-    fixture.detectChanges();
-
-    candidatosService.excluir.and.returnValue(of(void 0));
-
-    component.excluirCandidato();
-
-    expect(candidatosService.excluir).toHaveBeenCalled();
-    expect(notificationService.success).toHaveBeenCalledWith('Candidato excluído com sucesso!');
-  });
-
-  it('should call poModal.close after deleting candidato', () => {
+  it('should delete candidato and reload list when excluirCandidato is called', (done) => {
     createComponent();
     fixture.detectChanges();
 
@@ -209,7 +197,12 @@ describe('CandidatosHomeComponent', () => {
 
     component.excluirCandidato();
 
-    expect(component.poModal.close).toHaveBeenCalled();
+    fixture.whenStable().then(() => {
+      expect(candidatosService.excluir).toHaveBeenCalled();
+      expect(notificationService.success).toHaveBeenCalledWith('Candidato excluído com sucesso!');
+      expect(component.poModal.close).toHaveBeenCalled();
+      done();
+    });
   });
 
   it('should show error notification when excluirCandidato fails', (done) => {
@@ -264,5 +257,25 @@ describe('CandidatosHomeComponent', () => {
 
     // A chamada após a deleção deve ter incrementado o contador
     expect(candidatosService.listar.calls.count()).toBe(initialCallCount + 1);
+  });
+
+  it('should increase page size when showMore is called', () => {
+    createComponent();
+    fixture.detectChanges();
+    
+    const initialPageSize = component.filter.PageSize;
+    component.showMore();
+
+    expect(component.filter.PageSize).toBe(initialPageSize + 5);
+  });
+
+  it('should call listar when showMore is called', () => {
+    createComponent();
+    fixture.detectChanges();
+    
+    const callCount = candidatosService.listar.calls.count();
+    component.showMore();
+
+    expect(candidatosService.listar.calls.count()).toBe(callCount + 1);
   });
 });
