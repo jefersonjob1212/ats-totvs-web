@@ -1,6 +1,5 @@
 # Stage 1: Build
 FROM node:20-alpine AS build
-
 WORKDIR /app
 
 # Copy package files
@@ -17,7 +16,7 @@ RUN npm run build
 
 # Stage 2: Runtime
 FROM nginx:alpine
-
+RUN rm -rf /usr/share/nginx/html/*
 # Copy built application from build stage
 COPY --from=build /app/dist/ats-totvs-web /usr/share/nginx/html
 
